@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>服务端渲染</title>
+	<script src="./node_modules/jquery/dist/jquery.js"></script>
+	<script src="./node_modules/art-template/lib/template-web.js"></script>
+</head>
+<body>
+	
+	<div id="div"></div>
+	<!-- 服务端渲染,模板不需要放到script标签中,因为我们返回给客户端的是一个已经渲染的html文本 -->
+	<p>名字:{{name}}</p>
+	<p>年龄:{{age}}</p>
+	爱好:
+	{{each hobby}}
+	<p>{{$value}}</p>
+	{{/each}}
+
+	<button id="last" onclick="window.location.href='/last'">上一页</button>
+	<button id="next" onclick="window.location.href='/next'">下一页</button>
+
+</body>
+</html>

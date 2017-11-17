@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>客户端渲染</title>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/art-template/lib/template-web.js"></script>
+</head>
+
+<body>
+
+    <div id="div"></div>
+    <script type="text/html" id="template">
+            <p>名字:{{name}}</p>
+            <p>年龄:{{age}}</p>
+            爱好:
+            {{each hobby}}
+            <p>{{$value}}</p>
+            {{/each}}
+        </script>
+
+    <button id="last">上一页</button>
+    <button id="next">下一页</button>
+
+
+    <script type="text/javascript">
+        $('#last').click(function (e) {
+            //1. 发送ajax请求
+            $.ajax({
+                url: '/last',
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    // 这里如果有中文 ,虽然在游览器响应中我们可以看到乱码,但ajax内部会帮我们转成对象
+                    console.log(data);
+                    //2. 渲染引擎模板
+                    // var html = template('template', data);
+                    // //3. 替换
+                    // $('#div').html(html);
+                }
+            });
+        });
+
+        $('#next').click(function (e) {
+            //1. 发起ajax请求
+            $.ajax({
+                url: '/next',
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    // 这里如果有中文 ,虽然在游览器响应中我们可以看到乱码,但ajax内部会帮我们转成对象
+                    //2. 渲染引擎模板
+                    var html = template('template', data);
+                    //3. 替换
+                    $('#div').html(html);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
